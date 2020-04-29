@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const checkRole = require('../middleware/check-roles.js');
+
 const Blogposts = require('../models/blogpost-model.js');
 
 // get all posts
@@ -18,7 +20,7 @@ router.get('/', (req, res) => {
 })
 
 // add a post
-router.post('/', (req, res) => {
+router.post('/', checkRole('Admin'), (req, res) => {
   const content = req.body;
   Blogposts.createPost(content)
     .then(post => {
@@ -36,7 +38,7 @@ router.post('/', (req, res) => {
 
 
 // delete a post
-router.delete('/:id', (req, res) => {
+router.delete('/:id', checkRole('Admin'), (req, res) => {
   const id = req.params.id;
   Blogposts.removePost(id)
     .then(deleted => {
