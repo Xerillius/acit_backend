@@ -4,7 +4,8 @@ const db = require('../data/dbConfig.js');
 // Filter is optional
 const find = filter => {
   return db('users')
-    .where(filter);
+    .where(filter)
+    .select('id', 'email', 'username');
 }
 
 const findById = id => {

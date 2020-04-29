@@ -6,11 +6,11 @@ exports.up = function(knex) {
     table
       .integer('post_id');
     table
-      .string('post_text');
+      .string('content_text');
     table
-      .string('post_img');
+      .string('content_img');
     table
-      .integer('post_format')
+      .integer('content_format')
       .defaultTo(0);
   })
 };
