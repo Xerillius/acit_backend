@@ -8,11 +8,11 @@ exports.up = function(knex) {
       .notNullable()
       .unique();
     table
-      .string('username', 32)
+      .string('username')
       .notNullable()
       .unique();
     table
-      .string('password', 32)
+      .string('password')
       .notNullable();
   });
 };
