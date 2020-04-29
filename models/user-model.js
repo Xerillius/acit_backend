@@ -21,11 +21,11 @@ const addUser = async (user) => {
 }
 
 const updateUser = async (id, user) => {
-  const [id] = await db('users')
+  const [userID] = await db('users')
     .where({id})
     .update(user)
     .returning('id');
-  return findById(id);
+  return findById(userID);
 }
 
 const deleteUser = async (id) => {
