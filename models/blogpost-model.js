@@ -4,14 +4,14 @@ const cont = require('./content-model.js');
 // Find blogposts
 const find = async () => {
   return await db('blogposts')
-    .join('contents', 'blogposts.id', '=', 'contents.post_id');
+    .rightJoin('contents', 'blogposts.id', 'contents.post_id');
 }
 
 // Find blogpost by filter
 const filterPosts = async filter => {
   return await db('blogposts')
     .where(filter)
-    .join('contents', 'blogposts.id', '=', 'contents.post_id');
+    .rightJoin('contents', 'blogposts.id', 'contents.post_id');
 }
 
 // Add blogpost

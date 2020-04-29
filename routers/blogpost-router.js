@@ -51,3 +51,5 @@ router.delete('/:id', checkRole('Admin'), (req, res) => {
       });
     });
 })
+
+module.exports = router;

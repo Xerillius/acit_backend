@@ -28,12 +28,12 @@ const remove = async id => {
 }
 
 // Update a content fragment
-const updateContent = (id, content) => {
-  const [id] = await db('content')
+const updateContent = async (id, content) => {
+  const [contentID] = await db('content')
     .where({id})
     .update(content)
     .returning('id');
-  return find(id);
+  return find(contentID);
 }
 
 module.exports = {
