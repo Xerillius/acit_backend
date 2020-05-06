@@ -32,6 +32,7 @@ router.post('/login', (req, res) => {
   Users.findByUsername(username)
     .then(async (user) => {
       const role = await roles.getRoles(user.id);
+      console.log(role);
       if(user && bcrypt.compareSync(password, user.password)) {
         const token = await common.createToken(user.id);
         res.status(200).json({
