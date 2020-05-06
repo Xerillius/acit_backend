@@ -15,6 +15,12 @@ const findById = id => {
     .first();
 }
 
+const findByUsername = (username) => {
+  return db('users')
+    .where({username})
+    .first();
+}
+
 const addUser = async (user) => {
   const [id] = await db('users')
     .insert(user)
@@ -41,6 +47,7 @@ const deleteUser = async (id) => {
 module.exports = {
   find,
   findById,
+  findByUsername,
   addUser,
   updateUser,
   deleteUser
