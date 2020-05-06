@@ -4,7 +4,8 @@ const db = require('../data/dbConfig.js');
 const getRoles = async id => {
   return await db('roles')
     .where({user_id: id})
-    .select('role');
+    .select('role')
+    .first();
 }
 
 // add role

@@ -35,7 +35,7 @@ router.post('/login', (req, res) => {
       if(user && bcrypt.compareSync(password, user.password)) {
         const token = await common.createToken(user.id);
         res.status(200).json({
-          message: `${username} logged in with role: ${role.role}`,
+          message: `${username} logged in with role: ${role}`,
           token: token
         })
       } else {
