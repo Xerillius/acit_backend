@@ -10,13 +10,13 @@ const minutes = value => {
 const createToken = async (id) => {
   return Users.findById(id)
     .then(user => {
-      const role = Roles.getRoles(user.id);
-      console.log("Role", role);
+      const userRole = Roles.getRoles(user.id);
+      console.log("Role", userRole);
       const payload = {
         id: user.id,
         username: user.username,
         email: user.email,
-        roles: role
+        roles: userRole
       }
 
       const options = {
