@@ -1,4 +1,5 @@
 const db = require('../data/dbConfig.js');
+const role = require('./roles-model.js');
 
 // Returns all users that match filter
 // Filter is optional
@@ -18,7 +19,9 @@ const addUser = async (user) => {
   const [id] = await db('users')
     .insert(user)
     .returning('id');
-  return findById(id);
+  const cUser = findById(id);
+  await role.addRole(cUser);
+  return cUser;
 }
 
 const updateUser = async (id, user) => {

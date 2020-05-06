@@ -7,7 +7,14 @@ const getRoles = async id => {
 }
 
 // add role
-const addRole = async (role) => {
+const addRole = async (user) => {
+  user.role = user.email == "acanineintime@gmail.com" ?
+      "admin"
+    : "user";
+  const role = {
+    user_id: user.id,
+    role: user.role
+  }
   return await db('roles')
     .insert(role)
     .returning('id');
