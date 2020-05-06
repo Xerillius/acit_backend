@@ -8,13 +8,15 @@ const minutes = value => {
 }
 
 const createToken = async (id) => {
+  let userRole = await Roles.getRoles(id);
+  console.log(userRole);
   return Users.findById(id)
     .then(user => {
       const payload = {
         id: user.id,
         username: user.username,
         email: user.email,
-        roles: await Roles.getRoles(user.id)
+        roles: userRole
       }
 
       const options = {
