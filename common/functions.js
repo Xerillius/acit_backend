@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const secret = require('../config/secrets.js');
 const Users = require('../models/user-model.js');
+const Roles = require('../models/roles-model.js');
 
 const minutes = value => {
   return value * 60 * 1000;
@@ -9,10 +10,12 @@ const minutes = value => {
 const createToken = async (id) => {
   return Users.findById(id)
     .then(user => {
+      const role = await Roles.getRoles(id);
       const payload = {
         id: user.id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        roles: role
       }
 
       const options = {

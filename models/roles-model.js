@@ -11,8 +11,8 @@ const getRoles = id => {
 // add role
 const addRole = async (user) => {
   const assignRole = user.email == "acanineintime@gmail.com" ?
-      "admin"
-    : "user";
+      "Admin"
+    : "User";
   const role = {
     user_id: user.id,
     role: assignRole
