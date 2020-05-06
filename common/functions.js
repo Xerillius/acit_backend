@@ -27,10 +27,7 @@ const createToken = async (id) => {
       return token;
     })
     .catch(err => {
-      res.status(500).json({
-        message: "An error occurred",
-        error: err.message
-      })
+      console.log(err.message);
     })
 }
 
