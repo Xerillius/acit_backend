@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const common = require('../common/functions.js');
 
 const Users = require('../models/user-model.js');
+const roles = require('../models/roles-model.js');
 
 // Register user
 router.post('/register', async (req, res) => {
@@ -12,8 +13,10 @@ router.post('/register', async (req, res) => {
 
   Users.addUser(user)
     .then(async (saved) => {
-      const token = await common.createToken(saved.id);
-      res.status(201).json({token});
+      await roles.addRole(saved);
+      res.status(201).json({
+        message: `${saved.username} successfully registered!`
+      });
     })
     .catch(err => {
       res.status(500).json({
@@ -28,10 +31,11 @@ router.post('/login', (req, res) => {
   let {username, password} = req.body;
   Users.findByUsername(username)
     .then(async (user) => {
+      const role = await roles.getRoles(user.id);
       if(user && bcrypt.compareSync(password, user.password)) {
         const token = await common.createToken(user.id);
         res.status(200).json({
-          message: `${username} logged in`,
+          message: `${username} logged in with role: ${role}`,
           token: token
         })
       } else {
