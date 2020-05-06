@@ -10,7 +10,8 @@ const minutes = value => {
 const createToken = async (id) => {
   return Users.findById(id)
     .then(user => {
-      const role = await Roles.getRoles(user.id);
+      const role = Roles.getRoles(user.id);
+      console.log(role);
       const payload = {
         id: user.id,
         username: user.username,
