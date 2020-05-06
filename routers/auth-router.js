@@ -26,6 +26,7 @@ router.post('/register', async (req, res) => {
 // Log user in
 router.post('/login', (req, res) => {
   let user = req.body;
+  console.log(user);
   Users.find(user.username)
     .then(async (user) => {
       if(user && bcrypt.compareSync(password, user.password)) {
