@@ -1,8 +1,8 @@
 const db = require('../data/dbConfig.js');
 
 // get roles
-const getRoles = async id => {
-  return await db('roles')
+const getRoles = id => {
+  return db('roles')
     .where({user_id: id})
     .select('role')
     .first();
