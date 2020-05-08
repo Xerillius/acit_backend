@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 })
 
 // add a post
-router.post('/', authenticate, checkRole('Admin'), (req, res) => {
+router.post('/', authenticate, checkRole('admin'), (req, res) => {
   const content = req.body;
   Blogposts.createPost(content)
     .then(post => {
