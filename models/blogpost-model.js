@@ -1,10 +1,20 @@
 const db = require('../data/dbConfig.js');
-const cont = require('./content-model.js');
+const content = require('./content-model.js');
 
 // Find blogposts
 const find = async () => {
-  return await db('blogposts')
-    .rightJoin('contents', 'blogposts.id', 'contents.post_id');
+  const blogposts = await db('blogposts')
+
+  return Promise.all(blogposts.map(async blogpost => {
+    blogpost.contents = await content.findAll(blogpost.id);
+    return blogpost;
+  }))
+}
+
+const findById = id => {
+  return db('blogposts')
+    .where({id})
+    .first();
 }
 
 // Find blogpost by filter
@@ -19,13 +29,7 @@ const createPost = async data => {
   const [id] = await db('blogposts')
     .insert(data.owner_id)
     .returning('id');
-  await data.contents.forEach(content => {
-    content.post_id = id;
-    cont.addContent(content) > 0 ?
-        console.log("Success")
-      : console.log("Failure");
-  })
-  return filterPosts({id});
+  return findById(id);
 }
 
 // Delete blogpost
@@ -41,6 +45,7 @@ const removePost = async id => {
 
 module.exports = {
   find,
+  findById,
   filterPosts,
   createPost,
   removePost
