@@ -1,5 +1,6 @@
 module.exports = role => {
   return function (req, res, next) {
+    console.log(req);
     if(req.dJwt.roles && req.dJwt.roles.includes(role)) {
       next();
     } else {
