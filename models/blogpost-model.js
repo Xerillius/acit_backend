@@ -27,7 +27,7 @@ const filterPosts = async filter => {
 // Add blogpost
 const createPost = async data => {
   const [id] = await db('blogposts')
-    .insert(data.owner_id)
+    .insert(data)
     .returning('id');
   return findById(id);
 }
