@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const authenticate = require('../middleware/authenticate.js');
 const checkRole = require('../middleware/check-roles.js');
 
 const Blogposts = require('../models/blogpost-model.js');
@@ -20,7 +21,7 @@ router.get('/', (req, res) => {
 })
 
 // add a post
-router.post('/', checkRole('Admin'), (req, res) => {
+router.post('/', authenticate, checkRole('Admin'), (req, res) => {
   const content = req.body;
   Blogposts.createPost(content)
     .then(post => {
