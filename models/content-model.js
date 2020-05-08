@@ -7,9 +7,9 @@ const find = async id => {
 }
 
 // Find all content for a post
-const findAll = async id => {
+const findAll = id => {
   // id references primary key of the blog post
-  return await db('content')
+  return db('content')
     .where({post_id: id});
 }
 
